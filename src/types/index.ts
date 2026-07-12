@@ -1,7 +1,6 @@
 export interface Exercise {
   id: string;
   name: string;
-  createdAt: Date;
 }
 
 export interface SetEntry {
@@ -31,6 +30,4 @@ export interface WorkoutTemplate {
   id: string;
   name: string;
   exercises: TemplateExercise[];
-  createdAt: Date;
-  updatedAt: Date;
 }

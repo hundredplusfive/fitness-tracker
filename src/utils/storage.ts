@@ -16,7 +16,6 @@ export const storage = {
     const parsed = JSON.parse(data);
     return parsed.map((ex: any) => ({
       ...ex,
-      createdAt: new Date(ex.createdAt),
     }));
   },
 
@@ -53,8 +52,6 @@ export const storage = {
     const parsed = JSON.parse(data);
     return parsed.map((t: any) => ({
       ...t,
-      createdAt: new Date(t.createdAt),
-      updatedAt: new Date(t.updatedAt),
     }));
   },
 

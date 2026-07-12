@@ -69,7 +69,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const newExercise: Exercise = {
       id: Date.now().toString(),
       name,
-      createdAt: new Date(),
     };
     setExercises((prev) => [...prev, newExercise]);
   };
@@ -141,8 +140,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       id: Date.now().toString(),
       name,
       exercises,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     };
     setTemplates((prev) => [...prev, newTemplate]);
   };
@@ -150,7 +147,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const updateTemplate = (id: string, name: string, exercises: TemplateExercise[]) => {
     setTemplates((prev) =>
       prev.map((t) =>
-        t.id === id ? { ...t, name, exercises, updatedAt: new Date() } : t
+        t.id === id ? { ...t, name, exercises } : t
       )
     );
   };
@@ -167,8 +164,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ...templateToDuplicate,
       id: Date.now().toString(),
       name: `${templateToDuplicate.name} (Copy)`,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     };
     setTemplates((prev) => [...prev, newTemplate]);
   };
