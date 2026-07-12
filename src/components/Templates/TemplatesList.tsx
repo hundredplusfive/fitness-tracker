@@ -6,9 +6,10 @@ import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
 
 export function TemplatesList() {
-  const { templates, deleteTemplate, duplicateTemplate } = useApp();
+  const { templates, duplicateTemplate, deleteTemplate } = useApp();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTemplateId, setEditingTemplateId] = useState<string | null>(null);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   const handleEdit = (id: string) => {
     setEditingTemplateId(id);
@@ -16,8 +17,13 @@ export function TemplatesList() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Are you sure you want to delete this template?')) {
-      deleteTemplate(id);
+    setDeleteConfirmId(id);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (deleteConfirmId) {
+      deleteTemplate(deleteConfirmId);
+      setDeleteConfirmId(null);
     }
   };
 
@@ -79,6 +85,24 @@ export function TemplatesList() {
           onSubmit={handleCloseModal}
           onCancel={handleCloseModal}
         />
+      </Modal>
+
+      <Modal
+        isOpen={!!deleteConfirmId}
+        onClose={() => setDeleteConfirmId(null)}
+        title="Confirm Delete"
+      >
+        <div className="delete-confirm">
+          <p>Are you sure you want to delete this template?</p>
+          <div className="delete-confirm-actions">
+            <Button variant="secondary" onClick={() => setDeleteConfirmId(null)}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleDeleteConfirm}>
+              Delete
+            </Button>
+          </div>
+        </div>
       </Modal>
     </div>
   );
